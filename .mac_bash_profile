@@ -1,0 +1,81 @@
+alias c='clear'
+alias soc='source ~/.bash_profile'
+alias g='mvim'
+alias h='history'
+alias .="pwd"
+
+function oxterm() { ssh "nchatterjee@o-xterm-$1.nvidia.com" ; }
+alias drjmc='ssh nchatterjee@10.20.174.75'
+alias argml='ssh nchatterjee@arg-ml.nvidia.com'
+#alias oxterm='ssh -Y nchatterjee@o-xterm-27.nvidia.com'
+alias cs='ssh -Y nil@shell.cs.utah.edu'
+
+alias goUSIMM='cd /Volumes/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_tools/trace_usimm/'
+alias goSCRATCH='cd /Volumes/scratch.nchatterjee_Research/'
+alias goPERFORCE='cd /Volumes/scratch.nchatterjee_Research/perforce'
+alias goNVRSIMM='cd ~/Perforce/nchatterjee_Niladrishs-MacBook-Pro_3426/research/nchatterjee/tools/modular_usimm/'
+alias goMICRO='cd ~/Perforce/nchatterjee_Niladrishs-MacBook-Pro_3426/arg/papers/inprogress/MICRO_2015/DRAM_Row_Energy/'
+
+export PATH=/usr/local/texlive/2014/bin/x86_64-darwin/:/usr/X11R6/bin:/Users/nil/Installers/:$PATH
+
+export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+
+#export LOCAL_PROJECT_DIR=/Users/nil/Dropbox\ \(Nvidia\)/Projects/FF2-Fine-Grained-DRAM-Studies/paper
+export LOCAL_PROJECT_DIR=/Users/nil/Dropbox\ \(Nvidia\)/Projects/FF2-Fine-Grained-DRAM-Studies/paper/micro17/CAMERA_READY
+export LOCAL_XOR_DIR=/Users/nil/Dropbox\ \(Nvidia\)/Projects/XORTransfer/
+#export REMOTE_WRITING_DIR=/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/ISCA_2017/fgdram
+#export REMOTE_WRITING_DIR=/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/MICRO_2017/fgdram
+export REMOTE_WRITING_DIR=/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/MICRO_2017/fgdram/camera_ready
+export REMOTE_XOR_DIR=/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/HPCA_2018/XORTransfer
+
+
+
+alias ls='ls -GFh'
+alias tmnew='tmux new-session -s'
+alias tmattach='tmux attach -t'
+
+
+
+alias tTO='~/Work/transfer.sh'
+alias tFR='~/Work/transfer_from.sh'
+alias getSC='scp nchatterjee@o-xterm-27.nvidia.com:/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/HPCA_2017/subchannels/main.pdf /Users/nil/Dropbox\ \(Nvidia\)/Projects/Subchannels'
+alias getML='scp nchatterjee@o-xterm-27.nvidia.com:/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/ASPLOS_2017/cvdnn/asplos_style/vc.pdf /Users/nil/Dropbox\ \(Nvidia\)/Projects/MLCompression'
+alias getFGD='scp nchatterjee@o-xterm-27.nvidia.com:"$REMOTE_WRITING_DIR/*.pdf" "$LOCAL_PROJECT_DIR"/'
+alias getCameraReady='scp nchatterjee@o-xterm-27.nvidia.com:"$REMOTE_WRITING_DIR/camera_ready.pdf" "$LOCAL_PROJECT_DIR"/MICRO-50_355.pdf'
+alias getXOR='scp nchatterjee@o-xterm-27.nvidia.com:"$REMOTE_XOR_DIR/*.pdf" "$LOCAL_XOR_DIR"/'
+alias openML='open /Users/nil/Dropbox\ \(Nvidia\)/Projects/MLCompression/vc.pdf'
+alias openSC='open /Users/nil/Dropbox\ \(Nvidia\)/Projects/Subchannels/main.pdf'
+alias openFGD='open "$LOCAL_PROJECT_DIR"/main.pdf'
+alias openDIFF='open "$LOCAL_PROJECT_DIR"/diff.pdf'
+alias buildandfetchSC='makeandgetSC'
+
+export FF2ReportHome=/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_FF2/Reports/Q9_043017
+alias getFF2='scp nchatterjee@o-xterm-27.nvidia.com:$FF2ReportHome/report.pdf /Users/nil/Dropbox\ \(Nvidia\)/Projects/FF2-Fine-Grained-DRAM-Studies/Report\ Studies_2017_04'
+alias openFF2='open /Users/nil/Dropbox\ \(Nvidia\)/Projects/FF2-Fine-Grained-DRAM-Studies/Report\ Studies_2017_04/report.pdf'
+
+
+makeandgetSC(){
+	ssh nchatterjee@o-xterm-72.nvidia.com 'cd /home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/HPCA_2017/subchannels/; make clean; make;'
+	getSC
+}
+
+sendFigToWritingDirectory() {
+#	scp $1 nchatterjee@o-xterm-72.nvidia.com:/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_FF2/Reports/Q9_043017/figs ;
+	scp $1 nchatterjee@o-xterm-72.nvidia.com:"$REMOTE_WRITING_DIR"/figs ;
+#	scp $1 nchatterjee@o-xterm-72.nvidia.com:/home/scratch.nchatterjee_Research/perforce/nchatterjee_linux_p4research_papers/arg/papers/inprogress/ISCA_2017/fgdram/figs ;
+}
+
+
+
+alias sendfig='sendFigToWritingDirectory'
+
+alias mount_other_google_drive='sudo bindfs -o volname="Google Drive -
+NVIDIA" -o local --xattr-none --mirror=nchatterjee_work,nil,@staff
+--create-for-user=nchatterjee_work "/Users/nchatterjee_work/Google
+Drive" "/Users/nil/Google Drive - NVIDIA"'
+
+#source ~/.nvidia_specific_bashrc
+
